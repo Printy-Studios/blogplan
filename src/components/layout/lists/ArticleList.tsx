@@ -1,5 +1,6 @@
 // Types
 import { Article } from '@/types/Article'
+import ListButton from '../buttons/ListButton'
 
 type ArticleListProps = {
     /**
@@ -14,9 +15,16 @@ type ArticleListProps = {
 export default function ArticleList( { articles }: ArticleListProps) {
     return (
         <ul>
-            <li>
-
-            </li>
+            
+                {articles.map((article) => (
+                    <li>
+                        <ListButton
+                            leftText={article.title}
+                            rightText={article.published ? 'Published' : ''}
+                        />
+                    </li>
+                ))}
+            
         </ul>
     )
 }

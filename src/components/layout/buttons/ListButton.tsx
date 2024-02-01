@@ -5,13 +5,16 @@ type ListButtonProps = ComponentProps<'button'> & {
     rightText?: string
 }
 
-export default function ListButton( { leftText, rightText }: ListButtonProps) {
+export default function ListButton( { leftText, rightText, ...props }: ListButtonProps) {
     return (
-        <button>
-            <span>
+        <button
+            {...props}
+            className='list-button'
+        >
+            <span className='left'>
                 {leftText}
             </span>
-            <span>
+            <span className='right'>
                 {rightText}
             </span>
         </button>

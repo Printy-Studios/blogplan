@@ -1,3 +1,8 @@
+:root {
+    --black-1: #444444;
+    --black-2: #AEAEAE;
+}
+
 body, html {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0px;
@@ -65,6 +70,10 @@ section.details-list {
 
 /* Details */
 
+details > div {
+    margin-top: 16px;
+}
+
 details > summary {
     display: flex;
     align-items: center;
@@ -86,4 +95,23 @@ details[open] > summary > .icon {
     padding: 0px;
     height: 24px;
     width: fit-content;
+}
+
+.list-button {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 1rem;
+    padding: 12px;
+    background-color: transparent;
+    border-radius: 4px;
+    border: 1px solid var(--black-2);
+}
+
+.list-button > .left {
+    color: var(--black-1);
+}
+
+.list-button > .right {
+    color: var(--black-2);
 }
