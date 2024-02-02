@@ -22,12 +22,14 @@ export default function Details( { title, actionIcon, action, children }: PropsW
             <summary>
                 { title }
                 <img src={ChevronDown} className='icon'/>
-                <button 
-                    onClick={handleActionClick}
-                    className='icon-button'
-                >
-                    <img src={actionIcon || ""} className='icon'/>
-                </button>
+                {action ? 
+                    <button 
+                        onClick={handleActionClick}
+                        className='icon-button'
+                    >
+                        <img src={actionIcon || ""} className='icon'/>
+                    </button> //#TODO: Replace this with IconButton
+                : null} 
             </summary>
             <div>
                 { children }

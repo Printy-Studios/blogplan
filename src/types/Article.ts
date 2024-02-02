@@ -3,3 +3,8 @@ export type Article = {
     title: string
     published: boolean
 }
+
+export type ArticleCreate = {
+    title: string,
+    published?: boolean
+}

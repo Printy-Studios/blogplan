@@ -1,10 +1,14 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, ReactNode } from 'react';
 
-export default function Page( { children }: PropsWithChildren) {
+type PageProps = {
+    header?: ReactNode
+}
+
+export default function Page( { children, header }: PropsWithChildren<PageProps>) {
     return (
         <>
             <header className='app'>
-
+                { header }
             </header>
             <main>
                 { children }
