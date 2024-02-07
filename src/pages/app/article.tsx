@@ -8,6 +8,10 @@ import Page from '@/components/layout/Page'
 import { Article } from '@/types/Article';
 import ArticleHeader from '@/components/layout/ArticleHeader';
 
+/**
+ * Single article page
+ * @returns 
+ */
 export default function ArticlePage() {
 
     const { article } = useLoaderData() as { article: Article };
