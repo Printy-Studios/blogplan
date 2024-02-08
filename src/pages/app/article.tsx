@@ -47,7 +47,7 @@ export default function ArticlePage() {
                         onChange={(e) => handleTitleChange(e.currentTarget.value)}
                     />
                     <Details
-                        title="Outline"
+                        title={<h2>Outline</h2>}
                     >
 
                     </Details>
