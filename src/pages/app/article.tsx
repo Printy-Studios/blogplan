@@ -40,7 +40,7 @@ export default function ArticlePage() {
                 }}
                 onSubmit={() => {}}
             >
-                <section className='article'>
+                <section className='article details-list'>
                     <DisplayInput
                         name='title'
                         displayWrapper='h1'
