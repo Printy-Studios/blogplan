@@ -10,6 +10,7 @@ import DisplayInput from '@/components/input/DisplayInput';
 
 // Types
 import { Article } from '@/types/Article';
+import db from '@/util/db';
 
 /**
  * Single article page
@@ -17,7 +18,17 @@ import { Article } from '@/types/Article';
  */
 export default function ArticlePage() {
 
+    //-- Hooks --//
     const { article } = useLoaderData() as { article: Article };
+
+    //-- Handlers --//
+
+    const handleTitleChange = (new_title: string) => {
+        db.updateArticle({
+            id: article.id,
+            title: new_title
+        })
+    }
 
     return (
         <Page
@@ -33,6 +44,7 @@ export default function ArticlePage() {
                     <DisplayInput
                         name='title'
                         displayWrapper='h1'
+                        onChange={(e) => handleTitleChange(e.currentTarget.value)}
                     />
                     <Details
                         title="Outline"
