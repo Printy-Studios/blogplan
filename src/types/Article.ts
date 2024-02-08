@@ -9,3 +9,7 @@ export type ArticleCreate = {
     title: string,
     published?: boolean
 }
+
+export type ArticleUpdate = Partial<Article> & {
+    id: number
+}
