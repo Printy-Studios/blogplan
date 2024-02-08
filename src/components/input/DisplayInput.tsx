@@ -34,8 +34,6 @@ export default function DisplayInput( { onChange, displayWrapper, inputClassName
      */
     const inputRef = useRef<HTMLInputElement>(null);
 
-    console.log(inputRef)
-
     //-- Handlers --//
 
     /**
@@ -45,36 +43,50 @@ export default function DisplayInput( { onChange, displayWrapper, inputClassName
         setEditing(true);
     }
 
+    /**
+     * Called when input is focused out. Sets editing mode to false
+     */
     const handleFocusOut = () => {
         setEditing(false);
     }
 
+    
+
     useEffect(() => {
 
-        if(editing) {
-            inputRef.current?.addEventListener('focusout', handleFocusOut)
-            inputRef.current?.focus();
-        } else {
-            inputRef.current?.removeEventListener('focusout', handleFocusOut)
-        }
+        const input_element = inputRef.current!;
+
+        input_element.addEventListener('focusout', handleFocusOut)
 
         return () => {
-            inputRef.current?.removeEventListener('focusout', handleFocusOut)
+            input_element.removeEventListener('focusout', handleFocusOut)
         }
-    }, [editing])
+    }, [])
+
+    useEffect(() => {
+        const input_element = inputRef.current!;
+        if(editing) {
+            input_element.focus()
+        }
+    }, [ editing ])
 
     return(
-        editing ?
+        <>
             <input
                 {...props}
                 ref={inputRef}
                 className={inputClassName || ""}
+                style={{
+                    display: editing ? 'flex' : 'none'
+                }}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => {
                     field.onChange(props.name)(e);
                     onChange && onChange(e);
                 }}
                 value={field.value}
             />
-        : <DisplayWrapper onClick={handleDisplayClick}>{field.value}</DisplayWrapper>
+            {!editing ? <DisplayWrapper onClick={handleDisplayClick}>{field.value}</DisplayWrapper> : null}
+        </>
+        
     )
 }
