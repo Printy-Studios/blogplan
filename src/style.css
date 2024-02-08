@@ -136,3 +136,20 @@ button.primary {
     font-weight: 600;
     border-radius: 4px;
 }
+
+.toast {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+}
+
+.toast > button {
+    margin-left: 4px;
+    background-color: transparent;
+    border: 1px solid gray;
+    border-radius: 4px;
+    padding: 8px;
+    padding-inline: 12px;
+}

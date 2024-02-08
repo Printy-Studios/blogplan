@@ -1,12 +1,21 @@
+// Core
 import { RouterProvider, createBrowserRouter, redirect } from 'react-router-dom'
+import { Toaster } from 'react-hot-toast'
+
+// Style
 import './style.css'
-import DashboardPage from './pages/app/dashboard'
+
+// Constants
 import routes from './constants/routes'
+
+// Util
+import { toastAction } from './util/toast'
+
+// Pages
+import DashboardPage from './pages/app/dashboard'
 import dashboardLoader from './pages/app/dashboardLoader'
 import articleLoader from './pages/app/articleLoader'
 import ArticlePage from './pages/app/article'
-
-console.log(routes.article('[article_id]'));
 
 const router = createBrowserRouter([
   {
@@ -29,8 +38,17 @@ const router = createBrowserRouter([
 
 function App() {
 
+  
+//
   return (
-    <RouterProvider router={router} />
+    <>
+      <RouterProvider router={router} />
+      <button onClick={() => toastAction('Article archived', 'Undo', () => {})}>
+        Toast
+      </button>
+      <Toaster />
+    </>
+    
   )
 }
 
