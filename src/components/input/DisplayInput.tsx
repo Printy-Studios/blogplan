@@ -1,6 +1,6 @@
 // Core
 import { useField } from 'formik';
-import { ChangeEvent, ComponentProps, useEffect, useReducer, useRef, useState } from 'react'
+import { ChangeEvent, ComponentProps, useEffect, useRef, useState } from 'react'
 
 type DisplayInputProps = ComponentProps<'input'> & {
     /**
