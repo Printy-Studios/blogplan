@@ -1,5 +1,5 @@
 // Types
-import { Article, ArticleCreate } from '@/types/Article';
+import { Article, ArticleCreate, ArticleUpdate } from '@/types/Article';
 
 // Constants
 import storage_keys from '@/constants/storage_keys';
@@ -12,6 +12,7 @@ import DB from './DB';
 
 export default class LocalDB extends DB {
 
+    //-- Util --//
     /**
      * Get max ID for given resource
      * @param key key of resource, for examples 'articles'
@@ -43,6 +44,8 @@ export default class LocalDB extends DB {
         return max_id + 1;
     }
 
+    //-- Articles --//
+
     async getArticle(article_id: number): Promise<Article | null> {
         const articles = await this.getArticles();
 
@@ -55,10 +58,6 @@ export default class LocalDB extends DB {
         return article;
     }
 
-    /**
-     * Get all articles
-     * @returns array of Article objects
-     */
     async getArticles(): Promise<Article[]> {
 
         const articles = storage.get(storage_keys.articles);
@@ -71,10 +70,6 @@ export default class LocalDB extends DB {
         return storage.get(storage_keys.articles);
     }
     
-    /**
-     * Create new article according to the passed Article object
-     * @param article 
-     */
     async createArticle(article: ArticleCreate): Promise<number> {
         const articles = await this.getArticles();
 
@@ -89,5 +84,35 @@ export default class LocalDB extends DB {
         ])
 
         return id;
+    }
+
+    async setArticle(article: Article): Promise<void> {
+        const articles = await this.getArticles();
+
+        console.log(articles[0].id);
+        console.log(article.id)
+
+        const article_index = articles.findIndex(_article => article.id == _article.id);
+
+        if (article_index == -1) throw new Error('Could not find article with ID ' + article.id);
+
+        articles[article_index] = article;
+
+        storage.set(storage_keys.articles, articles);
+    }
+
+    async updateArticle(article: ArticleUpdate): Promise<void> {
+        const articles = await this.getArticles();
+
+        let article_to_update = articles.find(_article => _article.id == article.id);
+
+        if (!article_to_update) throw new Error('Could not find article with ID ' + article.id);
+
+        article_to_update = {
+            ...article_to_update,
+            ...article
+        }
+
+        await this.setArticle(article_to_update);
     }
 }
