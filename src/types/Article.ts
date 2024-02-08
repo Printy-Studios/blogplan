@@ -1,8 +1,11 @@
+// Types
+import { Section } from './Section'
+
 export type Article = {
     id: number
     title: string
     published: boolean
-    outline: string[]
+    archived: boolean
 }
 
 export type ArticleCreate = {

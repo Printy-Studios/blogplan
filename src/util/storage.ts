@@ -1,6 +1,11 @@
 const prefix = 'blogplan:'
 
 const storage = {
+    /**
+     * Get a storage property
+     * @param key Key of property
+     * @returns Stored property or null if property not found
+     */
     get(key: string) {
         return JSON.parse(localStorage.getItem(prefix + key) || "null");
     },

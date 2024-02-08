@@ -1,5 +1,6 @@
 // Types
 import { Article, ArticleCreate, ArticleUpdate } from '@/types/Article';
+import { Section, SectionCreate } from '@/types/Section';
 
 export default abstract class DB {
     //-- Articles --//
@@ -15,7 +16,7 @@ export default abstract class DB {
      * 
      * @returns Promise resolving to an array of Articles
      */
-    abstract getArticles(): Promise<Article[]>;
+    abstract getArticles(filter?: Partial<Article>): Promise<Article[]>;
     /**
      * Create new article
      * @param article Article object to create
@@ -33,4 +34,29 @@ export default abstract class DB {
      * @param article Article object with updated values.
      */
     abstract updateArticle(article: ArticleUpdate): Promise<void>;
+    /**
+     * Deletes an article
+     * @param article_id ID of article to delete
+     */
+    abstract deleteArticle(article_id: number): Promise<void>;
+
+    //-- Sections --//
+    /**
+     * Create new section for an article
+     * @param article_id 
+     * @param section 
+     */
+    abstract createSection(section: SectionCreate): Promise<number>;
+    /**
+     * Delete section by ID
+     * @param section_id ID of section to delete
+     */
+    abstract deleteSection(section_id: number): Promise<void>;
+    /**
+     * Get all sections of an article
+     * @param article_id ID of article for which to retrieve sections
+     * 
+     * @returns and array of Section objects for specified article
+     */
+    abstract getSections(article_id: number): Promise<Section[]>;
 }

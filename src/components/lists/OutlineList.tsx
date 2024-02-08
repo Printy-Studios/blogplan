@@ -3,19 +3,20 @@ import { useNavigate } from 'react-router-dom'
 
 // Types
 import { Article } from '@/types/Article'
+import { Section } from '@/types/Section'
 
 // Components
 import ListButton from '../buttons/ListButton'
+import ButtonList from './ButtonList'
 
 // Constants
 import routes from '@/constants/routes'
-import ButtonList from './ButtonList'
 
 type OutlineListProps = {
     /**
      * List of articles to display
      */
-    outline: string[]
+    outline: Section[]
 }
 
 /**
@@ -30,13 +31,16 @@ export default function OutlineList( { outline }: OutlineListProps) {
      * 
      * @param article_id ID of article to redirect to
      */
-    const handleSecClick = (article_id: number) => {
-        navigate(routes.article(article_id))
+    const handleSectionClick = (section_id: number) => {
+        // navigate(routes.article(article_id))
     }
 
     return (
-        <ButtonList<string>
+        <ButtonList<Section>
+            leftText={(section) => section.name}
             data={outline}
+            onClick={(section) => handleSectionClick(section.id)}
+            keyFn={(section) => section.id}
         />
     )
 }
