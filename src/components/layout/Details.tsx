@@ -1,5 +1,5 @@
 // Core
-import { PropsWithChildren, ReactNode, MouseEvent } from 'react'
+import { PropsWithChildren, ReactNode, MouseEvent, Ref } from 'react'
 import ChevronDown from '@/icons/chevron-down.svg'
 
 type DetailsProps = {
@@ -13,12 +13,13 @@ type DetailsProps = {
      * Action button icon
      */
     actionIcon?: string
+    detailsRef?: Ref<HTMLDetailsElement>
 }
 
 /**
  * <details> wrapper
  */
-export default function Details( { title, actionIcon, action, children }: PropsWithChildren<DetailsProps>) {
+export default function Details( { title, actionIcon, action, children, detailsRef }: PropsWithChildren<DetailsProps>) {
 
     const handleActionClick = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -28,7 +29,9 @@ export default function Details( { title, actionIcon, action, children }: PropsW
     }
 
     return (
-        <details>
+        <details
+            ref={detailsRef}
+        >
             <summary>
                 { title }
                 <img src={ChevronDown} className='icon'/>

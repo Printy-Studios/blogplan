@@ -43,9 +43,6 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
-      <button onClick={() => toastAction('Article archived', 'Undo', () => {})}>
-        Toast
-      </button>
       <Toaster />
     </>
     

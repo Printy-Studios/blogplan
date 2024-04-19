@@ -12,12 +12,15 @@ import PlusIcon from '@/icons/plus.svg'
 // Types
 import { Article } from '@/types/Article';
 import db from '@/util/db';
+import { useRef } from 'react';
 
 
 export default function DashboardPage() {
 
     const { articles } = useLoaderData() as { articles: Article[]};
     const { revalidate } = useRevalidator();
+
+    const articleDetailsRef = useRef<HTMLDetailsElement>(null);
 
     console.log(articles);
 
@@ -31,6 +34,10 @@ export default function DashboardPage() {
         await db.createArticle({
             title: 'New Article'
         })
+
+        if(articleDetailsRef.current) {
+            articleDetailsRef.current.open = true;
+        }
 
         revalidate();
     }
@@ -50,6 +57,7 @@ export default function DashboardPage() {
                     title={<h2>Articles</h2>}
                     action={handleNewArticleClick}
                     actionIcon={PlusIcon}
+                    detailsRef={articleDetailsRef}
                 >
                     <ArticleList
                         articles={articles}
