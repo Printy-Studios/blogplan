@@ -1,21 +1,22 @@
 // Core
 import { useLoaderData, useRevalidator } from 'react-router-dom'
 import { Formik } from 'formik';
+import { useRef } from 'react';
 
 // Components
 import Page from '@/components/layout/Page'
 import ArticleHeader from '@/components/layout/ArticleHeader';
 import Details from '@/components/layout/Details';
 import DisplayInput from '@/components/input/DisplayInput';
+import OutlineList from '@/components/lists/OutlineList';
 
 // Types
 import { Article } from '@/types/Article';
 import db from '@/util/db';
+import { Section } from '@/types/Section';
 
 // Icons
 import PlusIcon from '@/icons/plus.svg'
-import { Section } from '@/types/Section';
-import OutlineList from '@/components/lists/OutlineList';
 
 /**
  * Single article page
@@ -26,6 +27,8 @@ export default function ArticlePage() {
     //-- Hooks --//
     const { article, outline } = useLoaderData() as { article: Article, outline: Section[] };
     const { revalidate } = useRevalidator();
+
+    const sectionsDetailsRef = useRef<HTMLDetailsElement>(null);
 
     //-- Handlers --//
 
@@ -38,6 +41,7 @@ export default function ArticlePage() {
             id: article.id,
             title: new_title
         })
+        
     }
 
     /**
@@ -48,6 +52,11 @@ export default function ArticlePage() {
             article_id: article.id,
             name: "New Section"
         })
+
+        if (sectionsDetailsRef.current) {
+            sectionsDetailsRef.current.open = true
+        }
+
         revalidate();
     }
 
@@ -78,6 +87,7 @@ export default function ArticlePage() {
                         title={<h2>Outline</h2>}
                         action={handleAddSection}
                         actionIcon={PlusIcon}
+                        detailsRef={sectionsDetailsRef}
                     >
                         <OutlineList
                             outline={outline}
